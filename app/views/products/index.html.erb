@@ -1,2 +1,28 @@
-<h1>Products#index</h1>
-<p>Find me in app/views/products/index.html.erb</p>
+<div class="container rooms">
+  <div class="row">
+    <div class="col-sm-12">
+      <header>
+        <h1>Productos</h1>
+        <%= link_to "<span class='glyphicon glyphicon-plus'></span><span class='hidden-xs'> Nuevo </span> Producto".html_safe, new_product_path, class: "btn btn-primary new-product" %>
+      </header>
+	  <table>
+	    <tr>
+	      <th>Nombre</th>
+	      <th>Precio</th>
+	      <th>Categoría</th>
+	      <th></th>
+	    </tr>
+
+	    <% @products.each do |product| %>
+	      <tr>
+	        <td><%= product.name %></td>
+	        <td><%= product.price %></td>
+	        <td><%= product.category.name %></td> <!--poner aquí asociación especial-->
+	        <td><%= link_to "<span class='glyphicon glyphicon-pencil'><span>".html_safe, edit_product_path(product), class: "edit-product-btn"  %></td>
+	        <td><%= link_to "<span class='glyphicon glyphicon-trash'><span>".html_safe, products, method: :delete, data: { confirm: "¿Estás seguro de eliminar este producto?" }, class: "destroy-room-btn" %></td>
+	      </tr>
+	    <% end %>
+	  </table>
+    </div>
+  </div>
+</div>
