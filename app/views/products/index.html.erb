@@ -2,24 +2,25 @@
   <div class="row">
     <div class="col-sm-12">
       <header>
-        <h1>Productos</h1>
+        <h1>Products</h1>
         <%= link_to "<span class='glyphicon glyphicon-plus'></span><span class='hidden-xs'> Nuevo </span> Producto".html_safe, new_product_path, class: "btn btn-primary new-product" %>
       </header>
-	  <table>
+	  <br><table class="table">
 	    <tr>
 	      <th>Nombre</th>
 	      <th>Precio</th>
 	      <th>Categoría</th>
 	      <th></th>
+	      <th></th>
 	    </tr>
 
-	    <% @products.each do |product| %>
+	    <% @products.each do |x| %>
 	      <tr>
-	        <td><%= product.name %></td>
-	        <td><%= product.price %></td>
-	        <td><%= product.category.name %></td> <!--poner aquí asociación especial-->
-	        <td><%= link_to "<span class='glyphicon glyphicon-pencil'><span>".html_safe, edit_product_path(product), class: "edit-product-btn"  %></td>
-	        <td><%= link_to "<span class='glyphicon glyphicon-trash'><span>".html_safe, products, method: :delete, data: { confirm: "¿Estás seguro de eliminar este producto?" }, class: "destroy-room-btn" %></td>
+	        <td><%= x.name %></td>
+	        <td><%= x.price %></td>
+	        <td><%= x.categories.map {|c| c.name}.join(', ') %></td>
+	        <td><%= link_to "<span class='glyphicon glyphicon-pencil'><span>".html_safe, edit_product_path(x), class: "edit-product-btn"  %></td>
+	        <td><%= link_to "<span class='glyphicon glyphicon-trash'><span>".html_safe, x, method: :delete, data: { confirm: "¿Estás seguro de eliminar este producto?" }, class: "destroy-product-btn" %></td>
 	      </tr>
 	    <% end %>
 	  </table>
