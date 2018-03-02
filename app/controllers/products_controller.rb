@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   def index
   	@products = Product.all
+    @categories = Category.all
   end
   def new
   	@products = Product.new
@@ -32,6 +33,6 @@ class ProductsController < ApplicationController
   end
   protected
     def product_params
-      params.require(:product).permit(:name, :price, :category_id, :product_id)
+      params.require(:product).permit(:name, :price, category_ids:[], product_ids:[])
     end
 end
