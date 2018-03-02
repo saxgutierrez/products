@@ -19,15 +19,12 @@ aquí abajo van lo que es las validaciones - errores
       <% end %>
 
       <%= form_for @products do |f| %>
-
         <div class="form-group">
           <%= f.text_field :name, class: 'form-control input-lg', placeholder: "Nombre del Producto" %>
         </div>
-
         <div class="form-group">
           <%= f.number_field :price, class: 'form-control input-lg', placeholder: "Precio del Producto" %>
-        </div>
-        
+        </div>  
         <!--poner aquí chekbox -->
         <div class="field">
             <%=hidden_field_tag "product[category_ids][]", nil%> <!--oculta el checkobox si lo encuentra vacío-->
@@ -36,7 +33,6 @@ aquí abajo van lo que es las validaciones - errores
             <%=label_tag dom_id(category) , category.name %><br>
             <% end %>
         </div>
-
         <div class="actions text-right">
           <%= f.submit @products.new_record? ? "Create Product" : "Edit Product", class: "btn btn-primary btn-lg btn-block" %>
         </div>
