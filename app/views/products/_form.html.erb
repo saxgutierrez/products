@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <h1><%= @products.new_record? ? "Nuevo": "Editar" %> Producto</h1>
+      
+      <%
+=begin %>
+aquí abajo van lo que es las validaciones - errores
+<%
+=end %>
+      <% if @products.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+          <% @products.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form_for @products do |f| %>
+
+        <div class="form-group">
+          <%= f.text_field :name, class: 'form-control input-lg', placeholder: "Nombre del Producto" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.number_field :price, class: 'form-control input-lg', placeholder: "Precio del Producto" %>
+        </div>
+        
+        <!--poner aquí chekbox -->
+        <div class="field">
+            <%=hidden_field_tag "product[category_ids][]", nil%> <!--oculta el checkobox si lo encuentra vacío-->
+            <%Category.all.each do |category|  %> <!--mostrar el checkbox guarda la categoría en un arreglo -->
+            <%= check_box_tag "product[category_ids][]", category.id, @products.category_ids.include?(category.id), id: dom_id(category) %>
+            <%=label_tag dom_id(category) , category.name %><br>
+            <% end %>
+        </div>
+
+        <div class="actions text-right">
+          <%= f.submit @products.new_record? ? "Create Product" : "Edit Product", class: "btn btn-primary btn-lg btn-block" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
