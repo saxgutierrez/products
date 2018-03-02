@@ -27,11 +27,17 @@ aquí abajo van lo que es las validaciones - errores
         </div>  
         <!--poner aquí chekbox -->
         <div class="field">
-            <%=hidden_field_tag "product[category_ids][]", nil%> <!--oculta el checkobox si lo encuentra vacío-->
+            <%=hidden_field_tag "product[category_ids][]", nil%> <!--no muestra las categorías cuando las encuentra vacías en el formulario ya sea para crear o editar producto-->
             <%Category.all.each do |category|  %> <!--mostrar el checkbox guarda la categoría en un arreglo -->
             <%= check_box_tag "product[category_ids][]", category.id, @products.category_ids.include?(category.id), id: dom_id(category) %>
             <%=label_tag dom_id(category) , category.name %><br>
             <% end %>
+            <!--product[category_ids][] se guarda la información-->
+            <!--category.id me devuelve el id de la categoria y la muestra en el formulario-->
+            <!--@products.category_ids arreglo con los id de las categorias asociadas al producto -->
+            <!--@products.category_ids.include?(category.id) si en el arreglo @products.category_ids están incluidos los id devueltos por category.id, retorna true, y permite ver el chuleado de las categorias asignadas para saber cuando se quiera editar las categorias en el formulario, si es false es porque no hay categorías asignadas -->
+            <!--id: dom_id(category) si no hay categorias asginadas, esto permite asginarlas, permite chulear las categorías en la cajita del formulario de edición cuando estén vacías--> 
+            <!-- label_tag dom_id(category) permite permitechulear las categorias cuando se le de click al nombre de la misma en el formulario de edición cuando estén vacías -->
         </div>
         <div class="actions text-right">
           <%= f.submit @products.new_record? ? "Create Product" : "Edit Product", class: "btn btn-primary btn-lg btn-block" %>
